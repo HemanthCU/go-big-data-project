@@ -22,5 +22,5 @@ func main() {
 		fmt.Println("main")
 		wg.Wait()
 	}
-	fmt.Println("all code complete")
+	fmt.Println("all code complete test")
 }
