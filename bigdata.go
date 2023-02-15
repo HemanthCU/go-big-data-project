@@ -2,26 +2,10 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
-	"log"
-	"net/http"
 	"sync"
 
 	getapi "github.com/HemanthCU/go-big-data-project/getapi"
 )
-
-func getData(url string) string {
-	resp, err := http.Get(url)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		log.Fatalln(err)
-	}
-	res := string(body)
-	return res
-}
 
 func main() {
 	var val float64
@@ -32,17 +16,14 @@ func main() {
 	if val > 4 {
 		wg.Add(1)
 		go func() {
-			getapi.Getapi(val)
-			fmt.Println("goroutine")
+			url = "http://api.worldbank.org/v2/countries/BGD/indicators/NY.GDP.MKTP.KD.ZG?per_page=11&date=2000:2010&format=json"
+			data := getapi.Getapi(url)
+			fmt.Println(data)
 			wg.Done()
 		}()
 		fmt.Println("main")
 		wg.Wait()
 	}
-
-	url = "http://api.worldbank.org/v2/countries/BGD/indicators/NY.GDP.MKTP.KD.ZG?per_page=11&date=2000:2010&format=json"
-	data := getData(url)
-	fmt.Println(data)
 
 	fmt.Println("all code complete")
 }
