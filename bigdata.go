@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"sync"
+	"time"
 
 	getapi "github.com/HemanthCU/go-big-data-project/getapi"
 )
@@ -25,5 +26,12 @@ func main() {
 		wg.Wait()
 	}
 
-	fmt.Println("all code complete")
+	fmt.Println("Starting infinite loop")
+	url = "http://api.worldbank.org/v2/countries/BGD/indicators/NY.GDP.MKTP.KD.ZG?per_page=11&date=2000:2010&format=json"
+	for {
+		go func() {
+			fmt.Println(getapi.Getapi(url))
+		}()
+		time.Sleep(time.Second * 10)
+	}
 }
