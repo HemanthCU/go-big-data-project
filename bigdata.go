@@ -40,7 +40,7 @@ func main() {
 		wg.Wait()
 	}
 
-	url = "http://api.worldbank.org/v2/countries/BGD/indicators/NY.GDP.MKTP.KD.ZG?per_page=11&date=2000:2010"
+	url = "http://api.worldbank.org/v2/countries/BGD/indicators/NY.GDP.MKTP.KD.ZG?per_page=11&date=2000:2010&format=json"
 	data := getData(url)
 	fmt.Println(data)
 
