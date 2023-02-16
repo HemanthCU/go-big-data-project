@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func Getapi(url string) string {
+func Getapi(url string) []byte {
 	resp, err := http.Get(url)
 	if err != nil {
 		log.Fatalln(err)
@@ -15,6 +15,5 @@ func Getapi(url string) string {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	res := string(body)
-	return res
+	return body
 }
