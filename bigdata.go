@@ -1,9 +1,11 @@
 package main
 
 import (
+	"bufio"
 	"encoding/json"
 	"fmt"
 	"log"
+	"os"
 	"sync"
 
 	//"time"
@@ -77,4 +79,22 @@ func main() {
 		}()
 		time.Sleep(time.Second * 10)
 	}*/
+
+	file, err := os.Open("nytkey.txt")
+	if err != nil {
+		log.Fatalln(err)
+	}
+	defer file.Close()
+	freader := bufio.NewReader(file)
+	buf := make([]byte, 32)
+	_, err = freader.Read(buf)
+	if err != nil {
+		log.Fatalln(err)
+	}
+	nytkey := string(buf)
+	nyturl := "https://api.nytimes.com/svc/topstories/v2/world.json?api-key=" + nytkey
+	nytdata := getapi.Getapi(nyturl)
+	if val > 4 {
+		fmt.Println(string(nytdata))
+	}
 }
